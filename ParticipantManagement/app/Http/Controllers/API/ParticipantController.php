@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller as Controller;
 use App\Participant;
 use App\Event;
 use App\ParticipantandEvent;
+use App\Jobs\ProcessSendingEmail;
 
 use Illuminate\Support\Facades\Validator;
 
@@ -50,7 +51,11 @@ class ParticipantController extends BaseController
             'last_name' => $request->last_name,
             'email' => $request->email,   
             ]);
-        $participant->events()->sync($events);   
+        $participant->events()->sync($events); 
+        
+        ProcessSendingEmail::dispatch($participant);
+        
+
        return $this->sendResponse($participant->toArray(), 'Участник '.$request->last_name.' '.$request->first_name.' успешно добавлен.');
 
     }
