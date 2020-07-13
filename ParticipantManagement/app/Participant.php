@@ -16,10 +16,15 @@ class Participant extends Model
         'first_name', 'last_name','email'
     ];
 
+
+
+
     /**
      * The events that belong to the participant.
      */
     public function events(){
-        return $this->belongsToMany('App\Event')->using('App\ParticipantandEvent');
+        return $this->belongsToMany('App\Event', 'partipants_and_events','participant_id','event_id');
     }
+
+     
 }

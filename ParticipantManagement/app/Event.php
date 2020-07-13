@@ -19,7 +19,7 @@ class Event extends Model
     /**
      * The participants that belong to the event.
      */
-    public function events(){
-        return $this->belongsToMany('App\Participant')->using('App\ParticipantandEvent');
+    public function participants(){
+        return $this->belongsToMany('App\Participant', 'partipants_and_events','event_id','participant_id');
     }
 }

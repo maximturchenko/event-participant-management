@@ -31,5 +31,12 @@ Route::group(['middleware' => ['cors', 'json.response']], function () {
 
 
 Route::middleware('auth:api')->group( function () {
-  Route::resource('tests', 'API\TestController');
+    Route::resource('participants', 'API\ParticipantController');
+
+    Route::get('events', 'API\EventController@index');
+    Route::get('events/{id}', 'API\EventController@show');
+    
+
+
+    Route::resource('tests', 'API\TestController');
 });
