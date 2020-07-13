@@ -14,6 +14,22 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+//header('Access-Control-Allow-Origin:  *');
+//header('Access-Control-Allow-Methods:  POST, GET, OPTIONS, PUT, DELETE');
+//header('Access-Control-Allow-Headers:  Content-Type, X-Auth-Token, Origin, Authorization'); 
+
+
+
+Route::group(['middleware' => ['cors', 'json.response']], function () {
+
+    Route::post('/register', 'API\AuthController@register')->name('reg');
+    Route::post('/login', 'API\AuthController@login')->name('login');    
+    Route::post('/logout', 'API\AuthController@logout')->name('logout');
+    
+
+});
+
+
+Route::middleware('auth:api')->group( function () {
+  Route::resource('tests', 'API\TestController');
 });
